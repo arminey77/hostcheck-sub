@@ -1,0 +1,10 @@
+---
+all:
+  hosts:
+    shatel-lb0:
+      ansible_user: hadi
+      become_user: hadi
+      ansible_host: 172.16.40.13
+      mount_sizes:
+        - "/": "14.66 GB"
+        - "/boot": "1.90 GB"
