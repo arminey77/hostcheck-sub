@@ -8,3 +8,13 @@ all:
       mount_sizes:
         - "/": "14.66 GB"
         - "/boot": "1.90 GB"
+    vagrant:
+      ansible_user: vagrant
+      become_user: vagrant
+      ansible_host: 127.0.0.1
+      ansible_port: 2222
+      mount_sizes:
+        - '/': '39.34 GB'
+      network:
+        netmask: 24
+        gateway: 10.0.2.2

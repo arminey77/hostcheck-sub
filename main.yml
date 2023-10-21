@@ -1,9 +1,10 @@
 - name: Play With << All >> Hosts
   hosts: all
   roles:
-    - { role: disk, tags: "disk", become: yes}
-    - { role: timesyncd, tags: "timesyncd", become: yes}
-    - { role: services, tags: "timesyncd", become: yes}
+    # - { role: disk, tags: "disk", become: yes}
+    # - { role: timesyncd, tags: "timesyncd", become: yes}
+    # - { role: services, tags: "timesyncd", become: yes}
+    - { role: network, tags: "network", become: yes}
   tasks:
     - name: Inform check mode
       fail:

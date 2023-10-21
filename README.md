@@ -12,7 +12,7 @@ Check and validate host details:
     + CPU
     + Memory
 + Network
-    + IP/Netmask Check
+    + IP/Netmask Check **&#x2611;**
     + DNS
     + NTP **&#x2611;**
 + Sysbench
