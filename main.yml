@@ -2,7 +2,8 @@
   hosts: all
   roles:
     - { role: disk, tags: "disk", become: yes}
-    
+    - { role: timesyncd, tags: "timesyncd", become: yes}
+    - { role: services, tags: "timesyncd", become: yes}
   tasks:
     - name: Inform check mode
       fail:

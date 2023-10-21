@@ -1,0 +1,2 @@
+- name: Journald configuration
+  include_tasks: journald.yml

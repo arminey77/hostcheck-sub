@@ -2,7 +2,7 @@
 
 Check and validate host details:
 + Disk checks:
-    + Partitions
+    + Partitions **&#x2611;**
     + LVM lists
     + Mounting
         + /var/log
@@ -14,12 +14,13 @@ Check and validate host details:
 + Network
     + IP/Netmask Check
     + DNS
-    + NTP
+    + NTP **&#x2611;**
 + Sysbench
     + Resource Health Check
 + Check Accessibility for team users
 + Services:
     + Zabbix: service status (health check + service enabled)
-    + Journald: set log size
+    + Journald: set log size **&#x2611;**
     + SSHD: Increase SSH porcess priority
+
 
