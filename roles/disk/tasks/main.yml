@@ -1,30 +1,5 @@
+- name: Check mounts
+  include_tasks: mounts.yml
 
-- name: Display
-  ansible.builtin.set_fact:
-    mount_sizes_raw: "{{ hostvars[inventory_hostname].ansible_mounts | to_json | from_json | reject('match', '.*loop.*' ) |
-      community.general.json_query(query) }}"
-  vars:
-    query: "[].{size_total: size_total , mount: mount}"
-
-- ansible.builtin.set_fact:
-    mount_sizes_result: "{{ mount_sizes_result | from_yaml }}"
-  vars:
-    mount_sizes_result: |
-      {% for mount_size_item in mount_sizes_raw %}
-        - {{ mount_size_item.mount }}: {{ mount_size_item.size_total|human_readable(unit='G') }}
-      {% endfor %}
-
-- name: Expected mount_sizes
-  debug:
-    msg: "{{ hostvars[inventory_hostname].mount_sizes  }}"
-    verbosity: 1
-- name: Actual mount_sizes
-  debug:
-    msg: "{{ mount_sizes_result  }}"
-    verbosity: 1
-
-- assert:
-    that:
-      - hostvars[inventory_hostname].mount_sizes == mount_sizes_result
-    fail_msg: "CH1 (Host Partitions): FAIL"
-    success_msg: "CH1 (Host Partitions): PASS"
+- name: Check LVM
+  include_tasks: lvm.yml

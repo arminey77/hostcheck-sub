@@ -3,14 +3,14 @@
 Check and validate host details:
 + Disk checks:
     + Partitions **&#x2611;**
-    + LVM lists
+    + LVM lists **&#x2611;**
     + Mounting
         + /var/log
         + NFS mount
     + Check /etc/fstab
 + Resource Check
-    + CPU
-    + Memory
+    + CPU **&#x2611;**
+    + Memory **&#x2611;**
 + Network
     + IP/Netmask Check **&#x2611;**
     + DNS

@@ -1,0 +1,9 @@
+
+
+- name: Actual mount_sizes
+  debug:
+    msg: "{{ ansible_facts.lvm | to_yaml }}"
+    verbosity: 1
+
+- debug:
+    msg:  "{{ ansible_facts.lvm | ansible.utils.remove_keys(target=['free_g']) | to_yaml }}"
