@@ -14,11 +14,11 @@ Check and validate host details:
 + Network
     + IP/Netmask Check **&#x2611;**
     + DNS
-    + NTP **&#x2611;**
 + Sysbench
     + Resource Health Check
 + Check Accessibility for team users
 + Services:
+    + Timesyncd(similar to NTP) **&#x2611;**
     + Zabbix Agent: service status (health check + service enabled)
     + Splunk Agent: service status (health check + service enabled)
     + Journald: set log size **&#x2611;**
