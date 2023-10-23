@@ -1,9 +1,19 @@
 
-
-- name: Actual mount_sizes
+- name: Extract mount_sizes
+  block:
+    - ansible.builtin.set_fact:
+        lvm_var: "{{  ansible_facts.lvm | ansible.utils.remove_keys(target=['free_g']) }}"
+- name: Expected LVM
   debug:
-    msg: "{{ ansible_facts.lvm | to_yaml }}"
+    msg: "{{ disk.lvm | to_nice_yaml(indent=2) }}"
     verbosity: 1
 
-- debug:
-    msg:  "{{ ansible_facts.lvm | ansible.utils.remove_keys(target=['free_g']) | to_yaml }}"
+- name: Actual LVM
+  debug:
+    msg: "{{ lvm_var | to_nice_yaml(indent=2) }}"
+    verbosity: 1
+- assert:
+    that:
+      - disk.lvm == lvm_var
+    fail_msg: "CH2 (LVM): FAIL"
+    success_msg: "CH2 (LVM): PASS"
