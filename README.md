@@ -19,8 +19,10 @@ Check and validate host details:
     + Resource Health Check
 + Check Accessibility for team users
 + Services:
-    + Zabbix: service status (health check + service enabled)
+    + Zabbix Agent: service status (health check + service enabled)
+    + Splunk Agent: service status (health check + service enabled)
     + Journald: set log size **&#x2611;**
     + SSHD: Increase SSH porcess priority
+
 
 

@@ -3,7 +3,7 @@
   roles:
     - { role: disk, tags: "disk", become: yes}
     - { role: timesyncd, tags: "timesyncd", become: yes}
-    - { role: services, tags: "timesyncd", become: yes}
+    - { role: services, tags: "services", become: yes}
     - { role: network, tags: "network", become: yes}
     - { role: resource, tags: "resource", become: yes}
   tasks:

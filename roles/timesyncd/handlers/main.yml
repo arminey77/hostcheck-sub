@@ -2,4 +2,3 @@
   service:
     name: systemd-timesyncd.service
     state: restarted
-  listen: systemd-timesyncd configuration changed

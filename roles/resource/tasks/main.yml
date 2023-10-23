@@ -3,16 +3,16 @@
 
 - name: Expected VCPU/Memory
   debug:
-    msg: "VCPU: {{ ansible_processor_vcpus }} / Memory: {{ ansible_memtotal_mb }}"
+    msg: "VCPU: {{ resource.vcpu }} / Memory: {{ resource.memory }}"
     verbosity: 1
 - name: Actuall VCPU/Memory
   debug:
-    msg: "VCPU: {{ resource.vcpu }} / Memory: {{ resource.memory }}"
+    msg: "VCPU: {{ ansible_processor_vcpus }} / Memory: {{ ansible_memtotal_mb }}"
     verbosity: 1
 
 - assert:
     that:
       - ansible_processor_vcpus == resource.vcpu
       - ansible_memtotal_mb == resource.memory
-    fail_msg: "CH3 (CPU/Memory): FAIL"
-    success_msg: "CH3 (CPU/Memory): PASS"
+    fail_msg: "CH4 (CPU/Memory): FAIL"
+    success_msg: "CH4 (CPU/Memory): PASS"
