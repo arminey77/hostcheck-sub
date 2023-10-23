@@ -11,10 +11,14 @@
     mode: 0644
     owner: root
     group: root
-  notify: systemd-timesyncd configuration changed
+  notify:
+    - Restart systemd-timesyncd
 
 - name: Start and enable systemd-timesyncd
   service:
     name: systemd-timesyncd.service
     enabled: yes
     state: started
+
+- name: Flush handlers
+  meta: flush_handlers
