@@ -1,0 +1,73 @@
+--- 
+- name: Download Splunk latest version
+  get_url:
+    url: "{{ repo_url }}{{ splunk_repo_path }}"
+    dest: "/tmp/"
+    mode: 0644
+  register: splunk_downloaded_tgz
+- debug: msg="{{ splunk_downloaded_tgz }}"
+
+- name: Get Splunk TGZ filename and version from dowloaded TGZ file
+  set_fact: 
+    splunk_tgz_filename: "{{ splunk_downloaded_tgz.dest | regex_search('(splunkforwarder-.+-Linux-x86_64.tgz)') }}"
+    splunk_tgz_version: "{{ splunk_downloaded_tgz.dest | regex_findall('splunkforwarder-([0-9.]+)') }}"
+
+
+- name: Check if Splunk path exists
+  stat:
+    path: "{{ splunk_installed_dir }}/splunkforwarder"
+  register: splunk_path
+
+- name: Read /etc/splunk.version file, if any
+  ansible.builtin.slurp:
+    src: "{{ splunk_installed_dir }}/splunkforwarder/etc/splunk.version"
+  register: splunk_version
+  when: splunk_path.stat.exists == true
+
+- name: Get Splunk current version from /etc/splunk.version, if installed
+  set_fact: 
+    splunk_current_version: "{{ splunk_version['content'] | b64decode | regex_findall('VERSION=([0-9.]+)') }}"
+  when: splunk_path.stat.exists == true
+
+- name: Check Splunk status
+  shell: "ps | grep splunkd | wc --lines"
+  register: splunk_status
+  changed_when: False
+
+- name: Check if splunk init.d script exists
+  stat:
+    path: /etc/init.d/splunk
+  register: splunk_initd
+
+- name: Stop Splunk to upgrade it as installed version is older
+  command: "{{ splunk_untar_path }} stop"
+  when: splunk_path.stat.exists == true
+
+- name: Romove Current Splunk Version '{{splunk_current_version[0]}}' from '{{ splunk_untar_path }}'
+  ansible.builtin.file:
+    state: absent
+    path: "{{ splunk_current_path }}"
+  when: splunk_current_version is undefined or splunk_tgz_version[0] is version(splunk_current_version[0], '>=')
+
+- name: Unpack Splunk TGZ '{{ splunk_tgz_version[0] }}' file in '{{ splunk_installed_dir }}' as current version is older or does not exist
+  unarchive:
+    src: "{{ splunk_downloaded_tgz.dest }}"
+    dest: "{{ splunk_installed_dir }}"
+    remote_src: yes
+  when: splunk_current_version is undefined or splunk_tgz_version[0] is version(splunk_current_version[0], '>=')
+
+- name: Config Splunk deploy poll
+  ansible.builtin.shell:  '{{ splunk_untar_path }}  --answer-yes --no-prompt --accept-license set deploy-poll {{ splunk_server }}'
+  register: splunk_poll_config
+
+- name: Config Splunk Systemd
+  ansible.builtin.shell: '{{ splunk_untar_path }} --answer-yes --no-prompt --accept-license enable boot-start -systemd-managed 0 '
+
+- name: Start and enable splunkd.service
+  service:
+    name: splunkd.service
+    enabled: yes
+    state: started
+
+- name: Flush handlers
+  meta: flush_handlers
