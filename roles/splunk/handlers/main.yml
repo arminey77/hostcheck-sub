@@ -1,0 +1,6 @@
+---
+# handlers file for splubk
+- name: Restart splunkd.service
+  service:
+    name: splunkd.service
+    state: restarted
