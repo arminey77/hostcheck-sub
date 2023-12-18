@@ -26,3 +26,8 @@ Check and validate host details:
 
 
 
+## Notes:
++ Ping all:
+```
+ansible -K -k -i ../inventory -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -m ping all
+```
