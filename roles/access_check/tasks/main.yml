@@ -1,0 +1,13 @@
+- name: Check access list
+  access_check:
+    dst: "{{ access_item.dst }}"
+    port: "{{ access_item.port }}"
+    timeout: 1
+  with_items: "{{ access_list }}"
+  loop_control:
+    loop_var: access_item
+  register: result
+
+- name: Print denied access list
+  debug:
+    msg: "{{ result | community.general.json_query('results[?access==`false`].access_item') }}"

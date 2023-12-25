@@ -7,6 +7,7 @@
     - { role: network, tags: "network", become: yes}
     - { role: resource, tags: "resource", become: yes}
     - { role: splunk, tags: "splunk", become: yes}
+    - { role: access_check, tags: "access_check", become: yes}
   tasks:
     - name: Inform check mode
       fail:
