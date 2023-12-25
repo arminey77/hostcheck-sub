@@ -16,7 +16,7 @@ Check and validate host details:
     + DNS
 + Sysbench
     + Resource Health Check
-+ Check Accessibility for team users
++ Check Access Lists **&#x2611;**
 + Services:
     + Timesyncd(similar to NTP) **&#x2611;**
     + Zabbix Agent: service status (health check + service enabled)
