@@ -1,7 +1,7 @@
 # hostcheck
 
 Check and validate host details:
-+ Add default apt repo list 
++ Add default apt repo list
 + Disk checks:
     + Partitions **&#x2611;**
     + LVM lists **&#x2611;**
@@ -26,9 +26,24 @@ Check and validate host details:
     + SSHD: Increase SSH porcess priority
 
 
+## Access Check
 
-## Notes:
 + Ping all:
 ```
 ansible -K -k -i ../inventory -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -m ping all
+```
+
++ Check all access lists:
+```
+ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check
+```
+
++ Check access lists of specific host:
+```
+ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>"
+```
+
++ Check single access:
+```
+ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -e "access_check_single=<IP/DOMAIN>:<PORT>"
 ```
