@@ -1,6 +1,7 @@
 # hostcheck
 
 Check and validate host details:
++ Add default apt repo list 
 + Disk checks:
     + Partitions **&#x2611;**
     + LVM lists **&#x2611;**
