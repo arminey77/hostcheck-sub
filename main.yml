@@ -1,3 +1,13 @@
+- name: Check SSH connnection
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Test SSH connection credentials
+      run_once: true
+      ansible.builtin.ping:
+      tags:
+        - always
+
 - name: Play With << All >> Hosts
   hosts: all
   roles:
@@ -7,6 +17,7 @@
     - { role: network, tags: "network", become: yes}
     - { role: resource, tags: "resource", become: yes}
     - { role: splunk, tags: "splunk", become: yes}
+    - { role: access_check, tags: "access_check", become: yes}
   tasks:
     - name: Inform check mode
       fail:

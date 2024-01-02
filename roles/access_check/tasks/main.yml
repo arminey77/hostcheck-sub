@@ -1,0 +1,6 @@
+- name: Install requirements
+  include_tasks: requirements.yml
+
+- name: Access check
+  include_tasks: access_check.yml
+

@@ -1,6 +1,7 @@
 # hostcheck
 
 Check and validate host details:
++ Add default apt repo list 
 + Disk checks:
     + Partitions **&#x2611;**
     + LVM lists **&#x2611;**
@@ -16,7 +17,7 @@ Check and validate host details:
     + DNS
 + Sysbench
     + Resource Health Check
-+ Check Accessibility for team users
++ Check Access Lists **&#x2611;**
 + Services:
     + Timesyncd(similar to NTP) **&#x2611;**
     + Zabbix Agent: service status (health check + service enabled)
