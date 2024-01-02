@@ -27,9 +27,9 @@
   with_items: "{{ flat_access_list.access_list }}"
   loop_control:
     loop_var: access_item
-  register: result
+  register: access_check_result
 
 - name: Print denied access list
   debug:
-    msg: "{{ result | community.general.json_query('results[?access==`false`].access_item') }}"
-  changed_when: result | community.general.json_query('results[?access==`false`].access_item')|length>0
+    msg: "{{ access_check_result | community.general.json_query('results[?access==`false`].access_item') | to_json | from_json  }}"
+  changed_when: access_check_result | community.general.json_query('results[?access==`false`].access_item')|length>0
