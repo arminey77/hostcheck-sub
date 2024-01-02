@@ -1,10 +1,16 @@
 - name: Install pip
   ansible.builtin.apt:
     name: python3-pip
-    state: present
+    state: latest
+    update_cache: yes
     force_apt_get: true
+
+- name: pkgs.yaml | Upgrade pip
+  pip:
+    name: pip
+    extra_args: "-i {{ pip_repo }} --upgrade"
 
 - name: Install dnspython library
   ansible.builtin.pip:
     name: dnspython
-    extra_args: -i {{ pip_repo }}
+    extra_args: "-i {{ pip_repo }}"
