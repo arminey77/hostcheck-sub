@@ -45,5 +45,5 @@ ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOU
 
 + Check single access:
 ```
-ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -e "access_check_single=<IP/DOMAIN>:<PORT>"
+ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>" -e "access_check_single=<IP/DOMAIN>:<PORT>"
 ```
