@@ -1,4 +1,4 @@
-- set_fact:
+- set_fact: # Todo: Check groups[group.name] exists
     flat_access_list: "{{ _flat_access_list | from_yaml }}"
   vars:
     _flat_access_list: |-
