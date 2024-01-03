@@ -11,17 +11,21 @@
 - name: Play With << All >> Hosts
   hosts: all
   roles:
-    - { role: access_check, tags: "access_check", become: yes, access_check_localhost_enabled: false, access_list: {
-      groups: {},
-      singles: [
-        {
-          name: "{% set access_check_single_splited = access_check_single.split(':') %}{{access_check_single_splited[0]}}",
-          ports: [
-            "{% set access_check_single_splited = access_check_single.split(':') %}{{access_check_single_splited[1]}}"
-          ]
-        }
-      ]
-    } }
+    - { role: access_check, tags: "access_check", become: yes,
+      access_check_localhost_enabled: false,
+      install_requirements: true,
+      access_list: {
+        groups: {},
+        singles: [
+          {
+            name: "{% set access_check_single_splited = access_check_single.split(':') %}{{access_check_single_splited[0]}}",
+            ports: [
+              "{% set access_check_single_splited = access_check_single.split(':') %}{{access_check_single_splited[1]}}"
+            ]
+          }
+        ]
+      }
+    }
   tasks:
     - name: Inform check mode
       fail:
