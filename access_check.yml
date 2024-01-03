@@ -13,7 +13,7 @@
   roles:
     - { role: access_check, tags: "access_check", become: yes,
       access_check_localhost_enabled: false,
-      install_requirements: true,
+      install_requirements: false,
       access_list: {
         groups: {},
         singles: [
