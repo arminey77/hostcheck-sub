@@ -1,6 +1,7 @@
 - name: Install requirements
   include_tasks: requirements.yml
-
+  when:
+    - install_requirements
 - name: Access check localhost
   include_tasks: access_check_localhost.yml
   when:
