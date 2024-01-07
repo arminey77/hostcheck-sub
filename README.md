@@ -35,15 +35,15 @@ ansible -K -k -i ../inventory -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -m ping
 
 + Check all access lists:
 ```
-ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check
+ansible-playbook -K -k -i ../inventory main.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check
 ```
 
 + Check access lists of specific host:
 ```
-ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>"
+ansible-playbook -K -k -i ../inventory main.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>"
 ```
 
-+ Check single access:
++ Check single access (Use `access_check.yml` playbook):
 ```
 ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>" -e "access_check_single=<IP/DOMAIN>:<PORT>"
 ```
