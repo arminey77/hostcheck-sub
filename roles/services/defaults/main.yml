@@ -1,1 +1,4 @@
 SystemMaxUse: 500M
+
+Kaspersky_enabled: false
+Kaspersky_state: stopped

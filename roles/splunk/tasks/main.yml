@@ -1,0 +1,4 @@
+---
+# tasks file for splubk
+- name: splunk configuration
+  include_tasks: splunk.yml
