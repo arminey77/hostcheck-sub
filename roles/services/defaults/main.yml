@@ -1,4 +1,5 @@
 SystemMaxUse: 500M
 
+change_kaspersky_state: true
 Kaspersky_enabled: false
 Kaspersky_state: stopped
