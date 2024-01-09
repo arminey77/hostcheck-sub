@@ -18,6 +18,7 @@
 
 - debug:
     msg: "{{flat_access_list}}"
+    verbosity: 1
 
 - name: Check group access lists
   access_check:
@@ -29,7 +30,7 @@
     loop_var: access_item
   register: access_check_result
 
-- name: Print denied access list
+- name: DENIED Remote access list (check LOCALHOST Denied list also)
   debug:
-    msg: "{{ access_check_result | community.general.json_query('results[?access==`false`].access_item') | to_json | from_json  }}"
+    msg: "{{ access_check_result | community.general.json_query('results[?access==`false`].access_item') | to_nice_yaml  }}"
   changed_when: access_check_result | community.general.json_query('results[?access==`false`].access_item')|length>0
