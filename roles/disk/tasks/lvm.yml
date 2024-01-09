@@ -15,5 +15,5 @@
 - assert:
     that:
       - disk.lvm == lvm_var
-    fail_msg: "CH2 (LVM): FAIL"
-    success_msg: "CH2 (LVM): PASS"
+    fail_msg: "CH (LVM): FAIL"
+    success_msg: "CH (LVM): PASS"
