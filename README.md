@@ -23,10 +23,20 @@ Check and validate host details:
     + Zabbix Agent: service status (health check + service enabled)
     + Splunk Agent: service status (health check + service enabled)
     + Journald: set log size **&#x2611;**
-    + SSHD: Increase SSH porcess priority
+    + SSHD: Increase SSH process priority
 
+# Tags
+
+* For each role, there is a Tag name equal with its name (e.g. `access_check`)
+* To do just check host details and check there is mismatched or not use `info_check` tag.
+
+# Info Check
+Some roles (with `info_check` tag) contains checking information like disks, network and etc.
+If there is mismatched, add `-vvv` to `ansible-playbook` command to show details.
+> You can also use debug output( by adding -vvv). They are in yaml format, simply can copy and paste to inventory.
 
 ## Access Check
+If there is a failed access, we show them as *Change* task not a fail.
 
 + Ping all:
 ```
@@ -46,4 +56,9 @@ ansible-playbook -K -k -i ../inventory main.yml -b -e 'ansible_user=<YOUR_USER>@
 + Check single access (Use `access_check.yml` playbook):
 ```
 ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=<YOUR_USER>@<ENV_DOMAIN>' -t access_check -l "<HOST>" -e "access_check_single=<IP/DOMAIN>:<PORT>"
+```
+
+For example:
+```
+ansible-playbook -K -k -i ../inventory access_check.yml -b -e 'ansible_user=test@stdc.local' -t access_check -l "bs-kube-lb*" -e "access_check_single=bs-kube-m1:6443"
 ```

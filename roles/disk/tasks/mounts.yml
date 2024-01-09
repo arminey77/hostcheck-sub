@@ -26,5 +26,5 @@
 - assert:
     that:
       - disk.mount_sizes == mount_sizes_result
-    fail_msg: "CH1 (Host Partitions): FAIL"
-    success_msg: "CH1 (Host Partitions): PASS"
+    fail_msg: "CH (Host Partitions): FAIL"
+    success_msg: "CH (Host Partitions): PASS"
