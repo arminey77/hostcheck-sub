@@ -1,6 +1,5 @@
----
-# handlers file for splubk
-- name: Restart splunkd.service
+- name: Start and enable splunkd.service
   service:
     name: splunkd.service
+    enabled: yes
     state: restarted
