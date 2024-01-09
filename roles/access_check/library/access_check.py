@@ -47,7 +47,7 @@ def main():
         logging.debug('Dst has DOMAIN format')
         access_returns = []
         try:
-            ips = dns.resolver.query(module.params['dst'], 'A')
+            ips = dns.resolver.resolve(module.params['dst'], 'A', search=True)
             logging.debug('list of A records for %s: %s', module.params['dst'], [ip.to_text() for ip in ips])
             for ip in ips:
                 logging.debug(ip)
@@ -56,6 +56,6 @@ def main():
             module.exit_json(changed=not all(access_returns), access=all(access_returns))
         except Exception as e:
             logging.error('Error on DNS resolver %s', e)
-
+            module.fail_json(e)
 if __name__ == '__main__':
     main()

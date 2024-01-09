@@ -14,3 +14,11 @@
   ansible.builtin.pip:
     name: dnspython
     extra_args: "-i {{ pip_repo }}"
+
+- name: Make sure requirements installed
+  debug:
+    msg: "Make sure you installed dnspython on localhost by requirements.txt"
+    verbosity: 1
+  run_once: True
+  delegate_to: localhost
+  become: False
