@@ -110,9 +110,7 @@
       ansible.builtin.shell: "{{ splunk_untar_path }} --answer-yes --no-prompt --accept-license enable boot-start -systemd-managed 0 "
       # ansible.builtin.shell: "{{ splunk_untar_path }} --answer-yes --no-prompt --accept-license enable boot-start  -user root -systemd-managed 1 "
       register: splunk_create_config
-      notify:
-        - Start and enable splunk.service
-        - Start and enable splunkd.service
+      notify: Start and enable splunkd.service
 
     - name: Show Config Splunk Systemd Output
       debug:
