@@ -1,8 +1,8 @@
 ---
 # defaults file for splubk
 splunk_installed_dir: '/opt'
-splunk_current_path: '/opt/splunkforwarder'
-splunk_untar_path: /opt/splunkforwarder/bin/splunk
+splunk_current_path: '{{splunk_installed_dir}}/splunkforwarder'
+splunk_untar_path: '{{splunk_current_path}}/bin/splunk'
 
 repo_url: 'https://repo.asax.ir/repository/FileRepo/'
 splunk_version: 8.2.3
