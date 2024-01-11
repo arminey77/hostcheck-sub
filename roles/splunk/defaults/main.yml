@@ -8,5 +8,5 @@ repo_url: 'https://repo.asax.ir/repository/FileRepo/'
 splunk_version: 8.2.3
 splunk_tgz_file: 'splunkforwarder-{{ splunk_version }}-cd0848707637-Linux-x86_64.tgz'
 splunk_repo_path: 'it/splunkforwarder/{{ splunk_tgz_file }}'
-splunk_server: 172.20.26.21:8089
+splunk_server: ""
 splunk_force_reinstall: false
