@@ -1,5 +1,16 @@
-# - name: Journald configuration
-#   include_tasks: journald.yml
-
+- name: Journald configuration
+  include_tasks:
+    file: journald.yml
+    apply:
+      tags:
+        - services_journald
+  tags:
+    - services_journald
 - name: Kaspersky service
-  include_tasks: kaspersky.yml
+  include_tasks:
+    file: kaspersky.yml
+    apply:
+      tags:
+        - services_kaspersky
+  tags:
+    - services_kaspersky
