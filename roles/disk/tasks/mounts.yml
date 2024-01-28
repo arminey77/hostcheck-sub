@@ -16,15 +16,15 @@
 
 - name: Expected mount_sizes
   debug:
-    msg: "{{ disk.mount_sizes | to_nice_yaml(indent=2) }}"
+    msg: "{{ disk.mount_sizes | sort_dict_bykey | to_nice_yaml(indent=2) }}"
     verbosity: 1
 - name: Actual mount_sizes
   debug:
-    msg: "{{ mount_sizes_result | to_nice_yaml(indent=2) }}"
+    msg: "{{ mount_sizes_result | sort_dict_bykey | to_nice_yaml(indent=2) }}"
     verbosity: 1
 
 - assert:
     that:
-      - disk.mount_sizes == mount_sizes_result
+      - " (disk.mount_sizes | sort_dict_bykey) == (mount_sizes_result | sort_dict_bykey)"
     fail_msg: "CH (Host Partitions): FAIL"
     success_msg: "CH (Host Partitions): PASS"
