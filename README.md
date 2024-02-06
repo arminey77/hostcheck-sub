@@ -15,6 +15,7 @@ Check and validate host details:
 + Network
     + IP/Netmask Check **&#x2611;**
     + DNS
+    + netplan config
 + Sysbench
     + Resource Health Check
 + Check Access Lists **&#x2611;**
@@ -24,6 +25,8 @@ Check and validate host details:
     + Splunk Agent: service status (health check + service enabled)
     + Journald: set log size **&#x2611;**
     + SSHD: Increase SSH process priority
++ Add asax.local crt
++ Check /etc/hosts to avoid hardcode repos
 
 # Tags
 
