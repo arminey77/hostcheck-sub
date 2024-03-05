@@ -1,0 +1,16 @@
+- name: Get sysmon service status
+  systemd:
+    name: sysmon
+  register: sysmon_service_status
+  ignore_errors: true
+
+- name: Change sysmon service disable
+  systemd:
+    name: sysmon
+    state: "{{ sysmon_state }}"
+    enabled: "{{ sysmon_enabled }}"
+  when: change_sysmon_stopped
+  ignore_errors: true
+
+- debug:
+    var: sysmon_service_status.status.ActiveState
