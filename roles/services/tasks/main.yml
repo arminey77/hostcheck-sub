@@ -14,3 +14,12 @@
         - services_kaspersky
   tags:
     - services_kaspersky
+
+- name: sysmon service
+  include_tasks:
+    file: sysmon.yml
+    apply:
+      tags:
+        - services_sysmon
+  tags:
+    - services_sysmon
