@@ -6,8 +6,9 @@ network:
         - {{ ip_address }}
       nameservers:
         addresses:
-          - {{ shatel_dns_server }}
-          - {{ tebiyan_dns_server }}
+{% for dns_server in dns_servers %}
+          - {{ dns_server }}
+{% endfor %}
         search:
           - {{ searching_domain }}
       routes:
