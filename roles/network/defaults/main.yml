@@ -1,0 +1,5 @@
+## Netplan
+
+shatel_dns_server: 172.20.25.210
+tebiyan_dns_server: 192.168.55.10
+searching_domain: "stdc.local"

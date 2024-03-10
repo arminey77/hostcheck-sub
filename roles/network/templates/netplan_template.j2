@@ -1,0 +1,15 @@
+network:
+  version: 2
+  ethernets:
+    {{ ethernet_interface }}:
+      addresses:
+        - {{ ip_address }}
+      nameservers:
+        addresses:
+          - {{ shatel_dns_server }}
+          - {{ tebiyan_dns_server }}
+        search:
+          - {{ searching_domain }}
+      routes:
+        - to: default
+          via: {{ default_gateway }}
