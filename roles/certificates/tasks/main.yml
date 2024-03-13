@@ -5,10 +5,11 @@
     owner: "{{ cert_permissions_owner }}"
     group: "{{ cert_permissions_group }}"
     mode: "{{ cert_permissions_mode }}"
-
+  register: copy_cert_result
 
 - name: Update the CA certificates to trust the new certificate
   ansible.builtin.command:
     cmd: update-ca-certificates
   register: update_ca_cert
   changed_when: "'1 added' in update_ca_cert.stdout"
+  when: copy_cert_result.changed
