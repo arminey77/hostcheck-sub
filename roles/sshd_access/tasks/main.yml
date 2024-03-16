@@ -4,6 +4,8 @@
     apply:
       tags:
         - sshd_access_sudoers
+  tags:
+    - sshd_access_sudoers
 
 - name: Sssd service configuration check
   include_tasks:
@@ -11,3 +13,5 @@
     apply:
       tags:
         - sshd_access_sssd
+  tags:
+    - sshd_access_sssd
