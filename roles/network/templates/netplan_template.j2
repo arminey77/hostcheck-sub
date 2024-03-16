@@ -1,0 +1,16 @@
+network:
+  version: 2
+  ethernets:
+    {{ ethernet_interface }}:
+      addresses:
+        - {{ ip_address }}
+      nameservers:
+        addresses:
+{% for dns_server in dns_servers %}
+          - {{ dns_server }}
+{% endfor %}
+        search:
+          - {{ searching_domain }}
+      routes:
+        - to: default
+          via: {{ default_gateway }}

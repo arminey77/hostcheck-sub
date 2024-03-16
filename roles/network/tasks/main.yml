@@ -1,5 +1,3 @@
-
-
 - name: Expected Netmask and Gateway
   debug:
     msg: "netmask: {{ network.netmask }} \ngateway: {{ network.gateway }}"
@@ -16,3 +14,53 @@
       - ansible_default_ipv4.gateway == network.gateway
     fail_msg: "CH (Netmask/Gateway): FAIL"
     success_msg: "CH (Netmask/Gateway): PASS"
+
+- name: Find Netplan config file
+  ansible.builtin.find:
+    paths: "/etc/netplan"
+    patterns: "*.yaml"
+  register: netplan_file
+
+- name: Read the Netplan config file
+  ansible.builtin.slurp:
+    src: "{{ netplan_file.files[0].path }}"
+  register: netplan_content
+
+- name: Decode Netplan YAML content
+  ansible.builtin.set_fact:
+    netplan_config: "{{ netplan_content.content | b64decode | from_yaml }}"
+
+- name: Determine ethernet interface name and default gateway
+  ansible.builtin.set_fact:
+    ethernet_interface: "{{ netplan_config['network']['ethernets'] | dict2items | map(attribute='key') | list | first }}"
+    default_gateway: "{{ netplan_config['network']['ethernets'] | dict2items | map(attribute='value') | map(attribute='routes') | select('defined') | flatten | selectattr('to', 'equalto', 'default') | map(attribute='via') | first }}"
+
+- name: Determine IP address
+  ansible.builtin.set_fact:
+    ip_address: "{{ netplan_config['network']['ethernets'][ethernet_interface]['addresses'] | first }}"
+
+- name: Generate new Netplan configuration
+  ansible.builtin.template:
+    src: netplan_template.j2
+    dest: "{{ netplan_file.files[0].path }}.new"
+
+- name: Check if Netplan configuration has changed
+  ansible.builtin.stat:
+    path: "{{ netplan_file.files[0].path }}.new"
+  register: new_netplan_stat
+
+- name: Backup current Netplan config and replace with new if changed
+  block:
+    - name: Backup current Netplan config
+      ansible.builtin.copy:
+        src: "{{ netplan_file.files[0].path }}"
+        dest: "{{ netplan_file.files[0].path }}.backup"
+        remote_src: true
+
+    - name: Replace current Netplan config with the new
+      ansible.builtin.copy:
+        src: "{{ netplan_file.files[0].path }}.new"
+        dest: "{{ netplan_file.files[0].path }}"
+        remote_src: true
+      notify: apply netplan configuration
+  when: new_netplan_stat.stat.exists
