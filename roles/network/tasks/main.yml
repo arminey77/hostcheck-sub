@@ -3,7 +3,7 @@
     msg: "netmask: {{ network.netmask }} \ngateway: {{ network.gateway }}"
     verbosity: 1
 
-- name: Actuall Netmask and Gateway
+- name: Actual Netmask and Gateway
   debug:
     msg: "netmask: {{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ansible.utils.ipaddr('prefix') }}\ngateway: {{ ansible_default_ipv4.gateway }}"
     verbosity: 1
