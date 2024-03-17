@@ -3,7 +3,9 @@ network:
   ethernets:
     {{ ethernet_interface }}:
       addresses:
+{% for ip_address in ip_addresses %}
         - {{ ip_address }}
+{% endfor %}
       nameservers:
         addresses:
 {% for dns_server in dns_servers %}
@@ -11,6 +13,8 @@ network:
 {% endfor %}
         search:
           - {{ searching_domain }}
+{% if default_gateway %}
       routes:
         - to: default
           via: {{ default_gateway }}
+{% endif %}
