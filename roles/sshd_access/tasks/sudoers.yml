@@ -43,7 +43,5 @@
     that:
       - not_in_sudoers_list | length == 0
       - missing_from_sudoers | length == 0
-    # fail_msg: "Sudoers configuration mismatch detected: Not in sudoers_list: {{ not_in_sudoers_list }} | Missing from sudoers: {{ missing_from_sudoers }}"
-    # success_msg: "Sudoers configuration matches expected list."
     fail_msg: "CH (sudoers): FAIL"
     success_msg: "CH (sudoers): PASS"
