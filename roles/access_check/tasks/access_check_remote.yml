@@ -24,7 +24,8 @@
   access_check:
     dst: "{{ access_item.name }}"
     port: "{{ access_item.port }}"
-    timeout: 1
+    timeout: "{{ timeout_value }}"
+    failed_on: "{{ failed_on }}"
   with_items: "{{ flat_access_list.access_list }}"
   loop_control:
     loop_var: access_item
