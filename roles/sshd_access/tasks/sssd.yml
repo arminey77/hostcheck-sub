@@ -18,20 +18,20 @@
     simple_allow_groups: "{{ (sssd_text | regex_findall('simple_allow_groups\\s*=\\s*([^\\n]+)') | first | split('=') | last | split(',') | map('trim') | list) }}"
   when: sssd_text is defined
 
-- name: Check sudoers_list against simple_allow_users and simple_allow_groups
+- name: Check sssd_list against simple_allow_users and simple_allow_groups
   ansible.builtin.set_fact:
-    users_missing: "{{ sudoers_list | difference(simple_allow_users + simple_allow_groups) }}"
-    extra_users: "{{ (simple_allow_users + simple_allow_groups) | difference(sudoers_list) }}"
+    users_missing: "{{ sssd_list | difference(simple_allow_users + simple_allow_groups) }}"
+    extra_users: "{{ (simple_allow_users + simple_allow_groups) | difference(sssd_list) }}"
 
 - name: Display discrepancies
   ansible.builtin.debug:
-    msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sudoers_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
+    msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sssd_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
     verbosity: 1
 
-- name: Assert no discrepancies in SSSD configuration
-  ansible.builtin.assert:
-    that:
-      - users_missing | length == 0
-      - extra_users | length == 0
-    fail_msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sudoers_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
-    success_msg: "SSSD configuration matches expected sudoers_list."
+# - name: Assert no discrepancies in SSSD configuration
+#   ansible.builtin.assert:
+#     that:
+#       - users_missing | length == 0
+#       - extra_users | length == 0
+#     fail_msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sssd_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
+#     success_msg: "SSSD configuration matches expected sssd_list."

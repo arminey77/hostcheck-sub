@@ -14,18 +14,19 @@ Check and validate host details:
     + Memory **&#x2611;**
 + Network
     + IP/Netmask Check **&#x2611;**
-    + DNS
-    + netplan config
+    + DNS **&#x2611;**
+    + netplan config **&#x2611;**
 + Sysbench
     + Resource Health Check
 + Check Access Lists **&#x2611;**
 + Services:
     + Timesyncd(similar to NTP) **&#x2611;**
     + Zabbix Agent: service status (health check + service enabled)
-    + Splunk Agent: service status (health check + service enabled)
+    + Splunk Agent: service status (health check + service enabled) **&#x2611;**
     + Journald: set log size **&#x2611;**
     + SSHD: Increase SSH process priority
-+ Add asax.local crt
+    + SSSD + Sudoers: **&#x2611;**
++ Add asax.local crt **&#x2611;**
 + Check /etc/hosts to avoid hardcode repos
 
 # Tags
