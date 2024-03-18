@@ -28,10 +28,10 @@
     msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sssd_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
     verbosity: 1
 
-# - name: Assert no discrepancies in SSSD configuration
-#   ansible.builtin.assert:
-#     that:
-#       - users_missing | length == 0
-#       - extra_users | length == 0
-#     fail_msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sssd_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
-#     success_msg: "SSSD configuration matches expected sssd_list."
+- name: Assert no discrepancies in SSSD configuration
+  ansible.builtin.assert:
+    that:
+      - users_missing | length == 0
+      - extra_users | length == 0
+    fail_msg: "SSSD configuration mismatch detected: Extra Users/Groups not in sssd_list: {{ extra_users }} | Users/Groups missing from SSSD configuration: {{ users_missing }}"
+    success_msg: "SSSD configuration matches expected sssd_list."
