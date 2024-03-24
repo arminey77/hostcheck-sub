@@ -1,0 +1,58 @@
+stages:
+  - create-merge-request
+
+.stages_base_definition: &stages_base_definition
+  stage: create-merge-request
+  image: docker:latest
+  before_script:
+    - apk add --no-cache curl jq
+
+.script_template: &script_template
+  - >
+    LAST_MR_AUTHOR=$(curl --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/repository/commits/$CI_COMMIT_SHA/merge_requests" | jq -r '.[0].author.name') &&
+    curl --request POST --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN"
+    --header "Content-Type: application/json"
+    --data "{ \"id\": \"$CI_PROJECT_ID\", \"source_branch\": \"$SOURCE_BRANCH\", \"target_branch\": \"$TARGET_BRANCH\",
+    \"title\": \"Promote $SOURCE_BRANCH to $TARGET_BRANCH | Initiated by $LAST_MR_AUTHOR\",
+    \"description\": \"This MR is automatically created and initiated by $LAST_MR_AUTHOR.\",
+    \"remove_source_branch\": true }" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests"
+
+default:
+  tags:
+    - stage-kubernetes-builds
+
+create-merge-request-to-stage:
+  <<: *stages_base_definition
+  variables:
+    SOURCE_BRANCH: "main"
+    TARGET_BRANCH: "stage"
+  script: *script_template
+  only:
+    - main
+
+create-merge-request-to-prod:
+  <<: *stages_base_definition
+  variables:
+    SOURCE_BRANCH: "stage"
+    TARGET_BRANCH: "prod"
+  script: *script_template
+  only:
+    - stage
+
+create-merge-request-to-ra:
+  <<: *stages_base_definition
+  variables:
+    SOURCE_BRANCH: "stage"
+    TARGET_BRANCH: "ra"
+  script: *script_template
+  only:
+    - stage
+
+create-merge-request-to-test:
+  <<: *stages_base_definition
+  variables:
+    SOURCE_BRANCH: "main"
+    TARGET_BRANCH: "test"
+  script: *script_template
+  only:
+    - main
