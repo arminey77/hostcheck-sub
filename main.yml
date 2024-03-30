@@ -16,8 +16,8 @@
     - { role: disk, tags: "disk, info_check", become: yes}
     - { role: timesyncd, tags: "timesyncd", become: yes}
     - { role: services, tags: "services", become: yes}
-    - { role: network, tags: "network, info_check", become: yes}
-    - { role: certificates, tags: "certificates, info_check", become: yes}
+    - { role: network, tags: "network", become: yes}
+    - { role: certificates, tags: "certificates", become: yes}
     - { role: sshd_access, tags: "sshd_access, info_check", become: yes}
     - { role: resource, tags: "resource, info_check", become: yes}
     - { role: splunk, tags: "splunk", become: yes}
