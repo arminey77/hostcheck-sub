@@ -1,3 +1,4 @@
+## ssh check to one server; for avoiding account lock(password retry.)
 - name: Check SSH connnection
   hosts: all
   # vars_files:
@@ -9,6 +10,8 @@
       ansible.builtin.ping:
       tags:
         - always
+
+## List of roles
 
 - name: Play With << All >> Hosts
   hosts: all
