@@ -1,4 +1,4 @@
-public_cert: "stdc.local.crt"
+public_cert: "asadc.local.crt"
 # or public_cert: "asadc.local.crt"
 
 cert_permissions_owner: root
