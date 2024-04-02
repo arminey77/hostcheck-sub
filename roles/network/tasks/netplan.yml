@@ -19,7 +19,7 @@
 
 - name: Determine default gateway
   ansible.builtin.set_fact:
-    default_gateway: "{{ netplan_config['network']['ethernets'][ethernet_interface]['gateway4'] | default(netplan_config['network']['ethernets'] | dict2items | map(attribute='value') | map(attribute='routes') | select('defined') | flatten | selectattr('to', 'equalto', 'default') | map(attribute='via') | first) }}"
+    default_gateway: "{{ netplan_config['network']['ethernets'][ethernet_interface].get('gateway4') | default((netplan_config['network']['ethernets'][ethernet_interface].get('routes') | default([]) | selectattr('to', 'in', ['0.0.0.0/0', 'default']) | map(attribute='via') | first), true) }}"
 
 - name: Determine IP addresses
   ansible.builtin.set_fact:
