@@ -8,7 +8,9 @@
 #   - "172.28.33.2"
 
 # Prod
-searching_domain: "asadc.local"
+searching_domain: 
+  - "op.local"
+  - "asadc.local"
 dns_servers:
   - "172.28.32.90"
   - "172.28.32.82"

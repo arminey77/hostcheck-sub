@@ -12,7 +12,9 @@ network:
           - {{ dns_server }}
 {% endfor %}
         search:
-          - {{ searching_domain }}
+{% for domain in searching_domain %}
+          - {{ domain }}
+{% endfor %}
 {% if default_gateway %}
       routes:
         - to: 0.0.0.0/0
