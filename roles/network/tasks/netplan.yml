@@ -41,7 +41,7 @@
     - name: Backup current Netplan config
       ansible.builtin.copy:
         src: "{{ netplan_file.files[0].path }}"
-        dest: "{{ netplan_file.files[0].path }}.backup"
+        dest: "{{ netplan_file.files[0].path }}.backup_{{ ansible_date_time.date }}_{{ ansible_date_time.time }}.yaml"
         remote_src: true
 
     - name: Replace current Netplan config with the new
