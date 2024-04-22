@@ -1,38 +1,15 @@
-- name: Apt repo install
-  shell: |
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/docker/gpgkey/gpg | sudo apt-key add -;\
-    curl -fsSL http://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.26--deb/Release.key |sudo apt-key add -;\
-    curl -fsSL http://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.27--deb/Release.key |sudo apt-key add -;\
-    curl -fsSL http://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.28--deb/Release.key |sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/hashicorp/consul/gpg | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/kubernetes/gpgkey/apt-key.gpg | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/ansible/gpg | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/apt/packages.microsoft/gpgkey/microsoft.asc | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/apt/ppa.launchpadcontent.net--deadsnakes--ppa--ubuntu/gpg | sudo apt-key add -;
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/mongodb/gpgkey/server-7.0.asc | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/apt.postgresql.org--pub--repos--apt/ACCC4CF8.asc | sudo apt-key add -;\
-    curl -fsSL https://repo.asax.ir/repository/FileRepo/hashicorp/terraform/gpg | sudo apt-key add -;\
-    if [ -f /etc/apt/sources.list ]; then sudo mv /etc/apt/sources.list /etc/apt/sources.list-bak; fi
-    echo "deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/bionic-proxy/ $(lsb_release -cs) main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/bionic-proxy/ $(lsb_release -cs)-updates main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/bionic-proxy/ $(lsb_release -cs)-backports main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/bionic-proxy/ $(lsb_release -cs)-security main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ubuntu/ $(lsb_release -cs) main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ubuntu/ $(lsb_release -cs)-security main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ubuntu/ $(lsb_release -cs)-updates main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ubuntu/ $(lsb_release -cs)-backports main multiverse restricted universe\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/docker-ubuntu/ $(lsb_release -cs) stable\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ansible-bionic-proxy/ $(lsb_release -cs) main\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/packages.microsoft.com--ubuntu/$(lsb_release -rs)/prod $(lsb_release -cs)  main\n
-    deb [arch=amd64, trusted=yes] http://repo.asax.ir/repository/apt-hashicorp/ $(lsb_release -cs) main\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/ppa.launchpadcontent.net--deadsnakes--ppa--ubuntu/ $(lsb_release -cs) main\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/repo.mongodb.com--apt--ubuntu/ $(lsb_release -cs)/mongodb-enterprise/7.0 multiverse
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/apt.postgresql.org--pub--repos--apt/ $(lsb_release -cs)-pgdg main\n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.26--deb/ / \n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.27--deb/ / \n
-    deb [arch=amd64, trusted=yes] https://repo.asax.ir/repository/prod-cdn.packages.k8s.io--repositories--isv--kubernetes--core--stable--v1.28--deb/ / \n"|sudo tee /etc/apt/sources.list.d/repo.asax.list > /dev/null
+- name: Add GPG keys
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  loop: "{{ gpg_keys_url }}"
 
-- name: Update apt packages
-  apt:
-    update_cache: yes
-    cache_valid_time: 8640000
+- name: Generate repo list
+  ansible.builtin.template:
+    src: repo.asax.list.j2
+    dest: "/etc/apt/sources.list.d/repo.asax.list"
+    backup: true
+  notify: Update apt packages
+
+- name: Flush handlers
+  meta: flush_handlers
