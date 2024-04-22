@@ -16,6 +16,7 @@
 - name: Play With << All >> Hosts
   hosts: all
   roles:
+    - { role: package, tags: "package, package_apt", become: yes}
     - { role: disk, tags: "disk, info_check", become: yes}
     - { role: timesyncd, tags: "timesyncd", become: yes}
     - { role: services, tags: "services", become: yes}
