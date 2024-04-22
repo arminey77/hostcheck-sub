@@ -29,25 +29,9 @@
 - name: Generate new Netplan configuration
   ansible.builtin.template:
     src: netplan_template.j2
-    dest: "{{ netplan_file.files[0].path }}.new"
+    dest: "{{ netplan_file.files[0].path }}"
+    backup: true
+  notify: apply netplan configuration
 
-- name: Check if Netplan configuration has changed
-  ansible.builtin.stat:
-    path: "{{ netplan_file.files[0].path }}.new"
-  register: new_netplan_stat
-
-- name: Backup current Netplan config and replace with new if changed
-  block:
-    - name: Backup current Netplan config
-      ansible.builtin.copy:
-        src: "{{ netplan_file.files[0].path }}"
-        dest: "{{ netplan_file.files[0].path }}.backup"
-        remote_src: true
-
-    - name: Replace current Netplan config with the new
-      ansible.builtin.copy:
-        src: "{{ netplan_file.files[0].path }}.new"
-        dest: "{{ netplan_file.files[0].path }}"
-        remote_src: true
-      notify: apply netplan configuration
-  when: new_netplan_stat.stat.exists
+- name: Flush handlers
+  meta: flush_handlers

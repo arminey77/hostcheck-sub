@@ -42,6 +42,15 @@ create-merge-request-to-prod:
   only:
     - stage
 
+create-merge-request-to-prod:
+  <<: *stages_base_definition
+  variables:
+    SOURCE_BRANCH: "stage"
+    TARGET_BRANCH: "p2"
+  script: *script_template
+  only:
+    - stage
+
 create-merge-request-to-ra:
   <<: *stages_base_definition
   variables:
@@ -50,12 +59,3 @@ create-merge-request-to-ra:
   script: *script_template
   only:
     - stage
-
-create-merge-request-to-test:
-  <<: *stages_base_definition
-  variables:
-    SOURCE_BRANCH: "main"
-    TARGET_BRANCH: "test"
-  script: *script_template
-  only:
-    - main
