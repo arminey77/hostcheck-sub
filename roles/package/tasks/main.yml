@@ -1,0 +1,8 @@
+- name: Apt install
+  include_tasks:
+    file: apt.yml
+    apply:
+      tags:
+        - package_apt
+  tags:
+    - package_apt
