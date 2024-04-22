@@ -42,7 +42,7 @@ create-merge-request-to-prod:
   only:
     - stage
 
-create-merge-request-to-prod:
+create-merge-request-to-p2:
   <<: *stages_base_definition
   variables:
     SOURCE_BRANCH: "stage"
