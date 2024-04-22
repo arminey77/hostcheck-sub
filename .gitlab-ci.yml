@@ -50,12 +50,3 @@ create-merge-request-to-ra:
   script: *script_template
   only:
     - stage
-
-create-merge-request-to-test:
-  <<: *stages_base_definition
-  variables:
-    SOURCE_BRANCH: "main"
-    TARGET_BRANCH: "test"
-  script: *script_template
-  only:
-    - main
