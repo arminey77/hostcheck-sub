@@ -27,6 +27,9 @@ Check and validate host details:
     + Journald: set log size **&#x2611;**
     + SSHD: Increase SSH process priority
     + SSSD + Sudoers: **&#x2611;**
+    + ManageEngine Log Rotate: 
+        /usr/local/manageengine/uems_agent/data/patch
+        /usr/local/manageengine/uems_agent/data/logs
 + Add asax.local crt **&#x2611;**
 + Check /etc/hosts to avoid hardcode repos
 
