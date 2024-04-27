@@ -15,3 +15,5 @@
         - config_netplan
   tags:
     - config_netplan
+  when:
+    - change_netplan_config_enabled

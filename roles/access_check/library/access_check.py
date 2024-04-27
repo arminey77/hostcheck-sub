@@ -19,7 +19,7 @@ def validate_ip(s):
     return True
 
 
-def telnet(dst: str, port: int, timeout=1):
+def telnet(dst: str, port: int, timeout=3):
     try:
         with Telnet(host=dst, port=port, timeout=timeout) as tn:
             return True
