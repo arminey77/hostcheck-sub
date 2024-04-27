@@ -7,8 +7,9 @@
 #   - "192.168.55.10"
 #   - "172.28.33.2"
 
+change_netplan_config_enabled: false
 # Prod
-searching_domain: 
+searching_domain:
   - "op.local"
   - "asadc.local"
 dns_servers:
