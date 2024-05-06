@@ -1,4 +1,5 @@
 ## Netplan
+change_netplan_config_enabled: false
 
 # Stage
 # searching_domain: "stdc.local"
@@ -8,7 +9,7 @@
 #   - "172.28.33.2"
 
 # Prod
-searching_domain: 
+searching_domain:
   - "op.local"
   - "asadc.local"
 dns_servers:
