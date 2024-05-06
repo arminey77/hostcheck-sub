@@ -1,0 +1,9 @@
+- name: Mount NFS client
+  include_tasks:
+    file: nfs-client.yml
+    apply:
+      tags:
+        - nfs_client
+  tags:
+    - nfs_client
+  when: ansible_hostname != nfs_server
