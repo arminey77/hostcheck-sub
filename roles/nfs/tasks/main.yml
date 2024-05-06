@@ -6,4 +6,6 @@
         - nfs_client
   tags:
     - nfs_client
-  when: ansible_hostname != nfs_server
+  when:
+    - nfs_enabled
+    - ansible_hostname != nfs_server
