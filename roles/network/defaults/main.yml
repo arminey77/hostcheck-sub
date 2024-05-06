@@ -1,4 +1,5 @@
 ## Netplan
+change_netplan_config_enabled: false
 
 # Stage
 # searching_domain: "stdc.local"
@@ -7,7 +8,6 @@
 #   - "192.168.55.10"
 #   - "172.28.33.2"
 
-change_netplan_config_enabled: false
 # Prod
 searching_domain:
   - "op.local"
