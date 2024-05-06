@@ -25,6 +25,7 @@
     - { role: sshd_access, tags: "sshd_access, info_check", become: yes}
     - { role: resource, tags: "resource, info_check", become: yes}
     - { role: splunk, tags: "splunk", become: yes}
+    - { role: nfs, tags: "nfs", become: yes}
     - { role: access_check, tags: "access_check, info_check", become: yes}
 
   tasks:
