@@ -1,4 +1,5 @@
 ## Netplan
+netplan_changed: false
 
 # Stage
 # searching_domain: "stdc.local"
