@@ -3,6 +3,7 @@
     state: present
     key: "{{ item.value.public_key }}"
     path: "/home/{{item.key}}{{ ssh_authorized_keys_zone }}/.ssh/authorized_keys"
-    user: "{{ ansible_user }}"
+    # user: "{{ ansible_user }}"
+    user: "{{item.key}}{{ ssh_authorized_keys_zone }}"
     manage_dir: true
   loop: "{{ ssh_authorized_keys | default({}) | dict2items }}"
