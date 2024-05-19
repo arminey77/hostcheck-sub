@@ -28,10 +28,11 @@ Check and validate host details:
     + syslog: /etc/logrotate.d/rsyslog (7 --> 1;sudo systemctl restart syslog)
     + SSHD: Increase SSH process priority
     + SSSD + Sudoers: **&#x2611;**
+    + SSH authorized_keys **&#x2611;**
     + ManageEngine Log Rotate: 
         /usr/local/manageengine/uems_agent/data/patch
         /usr/local/manageengine/uems_agent/data/logs
-+ Add asax.local crt **&#x2611;**
++ Add asax.local crt **&#x2611;**.
 + Check /etc/hosts to avoid hardcode repos
 
 # Tags
