@@ -16,6 +16,7 @@
 - name: Play With << All >> Hosts
   hosts: all
   roles:
+    - { role: os, tags: "os, node, info_check", become: yes}
     - { role: package, tags: "package, package_apt", become: yes}
     - { role: disk, tags: "disk, info_check", become: yes}
     - { role: timesyncd, tags: "timesyncd", become: yes}
@@ -27,6 +28,7 @@
     - { role: splunk, tags: "splunk", become: yes}
     - { role: nfs, tags: "nfs", become: yes}
     - { role: access_check, tags: "access_check, info_check", become: yes}
+    - { role: platform_services/blackbox_exporter, tags: "blackbox_exporter, platform_services", become: yes}
 
   tasks:
     - name: Inform check mode
