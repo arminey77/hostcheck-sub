@@ -28,6 +28,7 @@
     - { role: splunk, tags: "splunk", become: yes}
     - { role: nfs, tags: "nfs", become: yes}
     - { role: access_check, tags: "access_check, info_check", become: yes}
+    - { role: platform_services/blackbox_exporter, tags: "blackbox_exporter, platform_services", become: yes}
 
   tasks:
     - name: Inform check mode
