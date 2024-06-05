@@ -1,6 +1,3 @@
-
-
-
 - name: Expected VCPU/Memory
   debug:
     msg: "vcpu: {{ resource.vcpu }} \nmemory: {{ resource.memory }}"
