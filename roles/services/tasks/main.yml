@@ -32,3 +32,12 @@
         - services_cronjob
   tags:
     - services_cronjob
+
+- name: Aide
+  include_tasks:
+    file: aide.yml
+    apply:
+      tags:
+        - services_aide
+  tags:
+    - services_aide
