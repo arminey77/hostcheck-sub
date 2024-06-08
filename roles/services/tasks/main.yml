@@ -23,3 +23,12 @@
         - services_sysmon
   tags:
     - services_sysmon
+
+- name: CronJob
+  include_tasks:
+    file: cronjob.yml
+    apply:
+      tags:
+        - services_cronjob
+  tags:
+    - services_cronjob
