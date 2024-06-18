@@ -28,11 +28,12 @@
     blackbox_exporter_download_check is changed
     or blackbox_exporter_version_check.stdout | length == 0
 
-- name: Create blackbox_exporter user.
+- name: Create blackbox_exporter user
   user:
     name: blackbox_exporter
     shell: /sbin/nologin
     state: present
+    create_home: false
 
 - name: Copy the blackbox_exporter systemd unit file.
   template:
@@ -48,7 +49,7 @@
   when: blackbox_exporter_service is changed
 
 - name: Ensures /etc/blackbox-exporter dir exists
-  file: 
+  file:
     path: "/etc/blackbox-exporter"
     mode: "0744"
     owner: blackbox_exporter
