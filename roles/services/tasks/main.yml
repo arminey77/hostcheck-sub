@@ -23,3 +23,30 @@
         - services_sysmon
   tags:
     - services_sysmon
+
+- name: CronJob
+  include_tasks:
+    file: cronjob.yml
+    apply:
+      tags:
+        - services_cronjob
+  tags:
+    - services_cronjob
+
+- name: Aide
+  include_tasks:
+    file: aide.yml
+    apply:
+      tags:
+        - services_aide
+  tags:
+    - services_aide
+
+- name: sysctl
+  include_tasks:
+    file: sysctl.yml
+    apply:
+      tags:
+        - services_sysctl
+  tags:
+    - services_sysctl
