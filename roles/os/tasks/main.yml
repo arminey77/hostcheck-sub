@@ -1,6 +1,7 @@
 - name: Read /etc/hosts file
   ansible.builtin.shell: cat /etc/hosts
   register: hosts_file
+  changed_when: false
 
 - name: Filter out comments and empty lines
   ansible.builtin.set_fact:
