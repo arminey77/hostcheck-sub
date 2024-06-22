@@ -29,6 +29,7 @@
     - { role: nfs, tags: "nfs", become: yes} # Todo: Just install on workers(except w1)
     - { role: platform_services/blackbox_exporter, tags: "blackbox_exporter, platform_services", become: yes}
     - { role: access_check, tags: "access_check, info_check", become: yes}
+    - { role: node_exporter, tags: "exporter", become: yes}
 
   tasks:
     - name: Inform check mode
