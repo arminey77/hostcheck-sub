@@ -1,3 +1,4 @@
 - name: Configure all unpacked but unconfigured packages
   ansible.builtin.command:
     cmd: dpkg --configure -a
+  changed_when: false

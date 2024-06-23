@@ -1,0 +1,11 @@
+---
+- name: Install node_exporter
+  include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - node_exporter
+  tags:
+    - node_exporter
+  when:
+    - node_exporter_enabled

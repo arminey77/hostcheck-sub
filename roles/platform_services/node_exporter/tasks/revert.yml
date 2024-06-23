@@ -1,0 +1,23 @@
+- name: Create node_exporter user.
+  user:
+    name: node_exporter
+    shell: /sbin/nologin
+    state: absent
+    create_home: false
+    system: yes
+
+- name: Ensure node_exporter is running and enabled at boot.
+  service:
+    name: node_exporter
+    state: "stopped"
+    enabled: "false"
+  ignore_errors: true
+
+- name: Delete content & directory
+  ansible.builtin.file:
+    state: absent
+    path: /etc/systemd/system/node_exporter.service
+
+- name: Reload systemd daemon if unit file is changed.
+  systemd:
+    daemon_reload: true
