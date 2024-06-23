@@ -2,7 +2,3 @@
   systemd:
    name: systemd-journald
    state: restarted
-
-- name: Reload sysctl
-  ansible.builtin.command:
-    cmd: sysctl -p
