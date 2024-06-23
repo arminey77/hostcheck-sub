@@ -1,0 +1,27 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  #include_lines: ['^calico-packet^']
+  paths:
+{% for path in file_beat_log_path %}
+    - {{ path }}
+{% endfor %}
+
+output.elasticsearch:
+  hosts: [{{ elasticsearch_address }}]
+  username: "{{ elasticsearch_username }}"
+  password: "{{ elasticsearch_password }}"
+  #api_key: "{{ elasticsearch_apikey }}"
+  index: "{{ elastic_search_index_name }}-%{+yyyy.MM.dd}"
+  compression_level: 0
+
+setup.ilm.enabled: false
+setup.template.name: "{{ elastic_search_index_name }}"
+setup.template.pattern: "{{ elastic_search_index_name }}-*"
+setup.template.overwrite: true
+setup.template.settings:
+  index:
+    number_of_shards: 1
+
+ssl.enabled: false
+ssl.verification_mode: none
