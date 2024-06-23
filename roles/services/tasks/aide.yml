@@ -1,7 +1,7 @@
 - name: Find files containing 'aide' in /etc/cron.daily
   ansible.builtin.find:
     paths: /etc/cron.daily
-    patterns: '*aide*'
+    patterns: 'aide'
   register: aide_files
 
 - name: Rename files by adding .bak to the end
