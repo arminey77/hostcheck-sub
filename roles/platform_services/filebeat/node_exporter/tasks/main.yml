@@ -1,0 +1,11 @@
+---
+- name: Install file_beat
+  include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - file_beat
+  tags:
+    - file_beat
+  when:
+    - file_beat_enabled

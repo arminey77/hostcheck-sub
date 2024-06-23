@@ -1,0 +1,17 @@
+- type: log
+  paths:
+    - {{ file_beat_log_path }}
+  encoding: utf-8
+
+output.elasticsearch:
+  enabled: true
+  hosts: [{{ elasticsearch_address }}]
+  #protocol: "https"
+  username: "elastic"
+  password: "1qaz!QAZ"
+  #api_key: "MdRvRJABhn2d-c3DgnMO:4K895Ix1TnawPsWfA24LjA"
+  index: "testlocal-%{[beat.version]}-%{+yyyy.MM.dd}"
+  #ssl.enabled: true
+  #ssl.verification_mode: full
+
+#setup.template.enabled: true

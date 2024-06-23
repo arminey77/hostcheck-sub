@@ -1,0 +1,43 @@
+#- name: Check if Filebeat is already installed
+#  shell: dpkg-query -W -f='${Status}' filebeat | grep -q "install ok installed"
+#  register: file_beat_installed
+#  ignore_errors: true
+#  changed_when: false
+
+- name: Gather installed package facts
+  package_facts:
+  manager: apt
+
+- name: Check if Filebeat is already installed and the correct version
+  set_fact:
+    filebeat_installed: "{{ 'filebeat' in ansible_facts.packages and ansible_facts.packages['filebeat'][0]['version'] == file_beat_version }}"
+
+- name: "Download Filebeat {{ file_beat_version }}.deb file"
+  get_url:
+    url: "{{ file_beat_download_url }}"
+    dest: "{{ file_beat_deb_path }}"
+  when: not filebeat_installed
+
+- name: install deb file filebeat
+  ansible.builtin.apt:
+    state: present
+    deb: "{{ file_beat_deb_path }}"
+    policy_rc_d: 101
+  when: not filebeat_installed
+
+- name: Filebeat configuration file
+  template:
+    src: filebeat_yaml.j2
+    dest: /etc/filebeat/filebeat.yml
+    mode: '0644'
+    owner: root
+    group: root
+  notify: Restart Filebeat
+  when: not filebeat_installed
+
+- name: Enable and start Filebeat service
+  systemd:
+    name: filebeat
+    enabled: yes
+    state: started
+  when: not filebeat_installed
