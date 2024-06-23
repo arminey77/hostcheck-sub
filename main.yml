@@ -30,6 +30,7 @@
     - { role: platform_services/blackbox_exporter, tags: "blackbox_exporter, platform_services", become: yes}
     - { role: access_check, tags: "access_check, info_check", become: yes}
     - { role: platform_services/node_exporter, tags: "node_exporter, platform_services", become: yes}
+    - { role: platform_services/filebeat, tags: "file_beat, platform_services", become: yes}
 
   tasks:
     - name: Inform check mode
