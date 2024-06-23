@@ -1,0 +1,19 @@
+---
+file_beat_enabled: true
+file_beat_version: '7.16.3'
+
+file_beat_arch: 'amd64'
+file_beat_download_url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-{{ file_beat_version }}-{{ file_beat_arch }}.deb
+file_beat_deb_path : /tmp/filebeat-{{ file_beat_version }}-{{ file_beat_arch }}.deb
+
+environment_name: stage
+elastic_search_index_name: platform-calico-{{ environment_name }}
+
+file_beat_log_path:
+  - /var/log/syslog
+elasticsearch_address: http://st-log-elk:9200
+
+elasticsearch_username: elastic
+elasticsearch_password: 1qaz!QAZ
+elasticsearch_apikey: MdRvRJABhn2d-c3DgnMO:4K895Ix1TnawPsWfA24LjA
+
